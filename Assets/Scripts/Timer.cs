@@ -3,25 +3,50 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI timerText;
 
-    float remainingTime = 300f; // 5 minutes = 300 seconds
+    [SerializeField] private float startingTime = 300f; // 5 minutes
+
+    private float remainingTime;
+    private bool timerRunning = false;
+
+    void Start()
+    {
+        remainingTime = startingTime;
+
+        // Hide timer until dialogue is finished
+        timerText.gameObject.SetActive(false);
+
+        UpdateDisplay();
+    }
 
     void Update()
     {
+        if (!timerRunning)
+            return;
+
         if (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
 
-            int minutes = Mathf.FloorToInt(remainingTime / 60);
-            int seconds = Mathf.FloorToInt(remainingTime % 60);
+            if (remainingTime < 0)
+                remainingTime = 0;
 
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            UpdateDisplay();
         }
-        else
-        {
-            remainingTime = 0;
-            timerText.text = "00:00";
-        }
+    }
+
+    public void StartTimer()
+    {
+        timerText.gameObject.SetActive(true);
+        timerRunning = true;
+    }
+
+    private void UpdateDisplay()
+    {
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
+
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }
