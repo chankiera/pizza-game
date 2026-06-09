@@ -60,6 +60,15 @@ public class ToppingsStation : MonoBehaviour
         playerBody.SetActive(true);
         crossHair.SetActive(true);
 
+        // Make toppings child of pizza
+        GameObject pizza = GameObject.FindWithTag("Pizza");
+        GameObject[] toppings = GameObject.FindGameObjectsWithTag("Topping");
+
+        foreach (GameObject topping in toppings)
+        {
+            topping.transform.SetParent(pizza.transform);
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

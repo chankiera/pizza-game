@@ -41,6 +41,22 @@ public class HoldTopping : MonoBehaviour
             col.enabled = true;
             rb.isKinematic = false;
             rb.useGravity = true;
+
+            Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray2, out RaycastHit hit2))
+            {
+                Debug.Log("Hit something");
+
+                Pizza pizza = hit2.collider.GetComponentInParent<Pizza>();
+
+                if (pizza != null)
+                {
+                    Debug.Log("Topping Hit pizza!");
+                    transform.SetParent(pizza.transform);
+                }
+            }
+
             Destroy(this);
         }
     }
