@@ -18,6 +18,7 @@ public class DialogueController : MonoBehaviour
     private bool isTyping = false;
     private string currentFullLine;
     public Timer gameTimer;
+    public CustomerSpawner spawner;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class DialogueController : MonoBehaviour
             else
             {
                 gameTimer.StartTimer();
+                spawner.BeginService();
                 gameObject.SetActive(false);
             }
         }
