@@ -6,6 +6,7 @@ public class ToppingsStation : MonoBehaviour
     public GameObject fpsCamera;
     public GameObject pizzaCamera;
     public GameObject playerBody;
+    public GameObject crossHair;
     public PlayerMovement playerMovement;
     public MouseBehavior mouseMovement;
 
@@ -43,6 +44,7 @@ public class ToppingsStation : MonoBehaviour
         playerMovement.enabled = false;
         mouseMovement.enabled = false;
         playerBody.SetActive(false);
+        crossHair.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -56,6 +58,7 @@ public class ToppingsStation : MonoBehaviour
         mouseMovement.enabled = true;
         enterPrompt.SetActive(false);
         playerBody.SetActive(true);
+        crossHair.SetActive(true);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
