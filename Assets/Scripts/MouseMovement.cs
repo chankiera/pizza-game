@@ -13,6 +13,7 @@ public class MouseBehavior : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     // Update is called once per frame
@@ -26,5 +27,12 @@ public class MouseBehavior : MonoBehaviour
         yRotation += mouseX;
 
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+
+        //float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+
+        //xRotation -= mouseY;
+        //xRotation = Mathf.Clamp(xRotation, topClamp, botClamp);
+
+        //transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 }
