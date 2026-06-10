@@ -62,5 +62,13 @@ public class CustomerSpawner : MonoBehaviour
     public void StopService()
     {
         serviceRunning = false;
+        StopAllCoroutines();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        serviceRunning = false;
+        CurrentCustomer = null;
     }
 }

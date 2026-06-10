@@ -3,6 +3,7 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     [SerializeField] private float orderTimeLimit = 30f;
+    [SerializeField] private EndScreen endScreen;
 
     private float remainingTime;
     private bool isActive;
@@ -50,7 +51,7 @@ public class Customer : MonoBehaviour
         if (remainingTime <= 0f)
         {
             remainingTime = 0f;
-            LeaveAngry();
+            GameOver();
         }
     }
 
@@ -63,12 +64,21 @@ public class Customer : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void LeaveAngry()
+    private void GameOver()
     {
         if (!isActive) return;
 
         isActive = false;
+
         spawner?.ClearCustomer();
+
+        endScreen.ShowGameOver();
+
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        isActive = false;
     }
 }
