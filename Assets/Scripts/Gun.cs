@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(ray, out hit, range))
         {
             Debug.Log("Hit: " + hit.transform.name);
-            if (hit.transform.CompareTag("Enemy"))
+            if (hit.transform.CompareTag("Enemy") || hit.transform.CompareTag("Customer"))
             {
                 Destroy(hit.transform.gameObject);
             }
