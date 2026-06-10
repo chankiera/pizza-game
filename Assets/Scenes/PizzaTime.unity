@@ -206,7 +206,6 @@ GameObject:
   - component: {fileID: 27421893}
   - component: {fileID: 27421892}
   - component: {fileID: 27421891}
-  - component: {fileID: 27421895}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -295,9 +294,9 @@ RectTransform:
   - {fileID: 486764699}
   - {fileID: 26583112}
   - {fileID: 1520250277}
-  - {fileID: 1511079742}
   - {fileID: 1664755323}
   - {fileID: 1726391826}
+  - {fileID: 1768567043}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 20.096, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -305,20 +304,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &27421895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27421890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02bf0e17a04134e80936250ca9cca157, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Timer
-  timerText: {fileID: 1520250278}
-  startingTime: 240
 --- !u!1 &33004516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,7 +1653,7 @@ GameObject:
   - component: {fileID: 577282288}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2270,7 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc97e7d4287604192b0a6673e350999c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Customer
-  orderTimeLimit: 20
+  orderTimeLimit: 40
 --- !u!65 &886061792
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2705,8 +2690,6 @@ MonoBehaviour:
     customers, though. '
   - Your shift starts now.
   characterDelay: 0.03
-  gameTimer: {fileID: 27421895}
-  spawner: {fileID: 1551207716}
 --- !u!114 &1149618700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3604,7 +3587,6 @@ GameObject:
   - component: {fileID: 1511079742}
   - component: {fileID: 1511079745}
   - component: {fileID: 1511079744}
-  - component: {fileID: 1511079743}
   m_Layer: 5
   m_Name: CustomerTimer
   m_TagString: Untagged
@@ -3620,31 +3602,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511079741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999589, y: 0.9999589, z: 0.9999589}
+  m_LocalPosition: {x: 0, y: 0, z: -8.93331}
+  m_LocalScale: {x: 1.9999177, y: 1.9999177, z: 1.9999177}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 27421894}
+  m_Father: {fileID: 1768567043}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.00006, y: -74.999954}
+  m_AnchoredPosition: {x: 208.14178, y: 2010.3438}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1511079743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511079741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32591506d3b774c8694d87589b6e5f04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  timerText: {fileID: 1511079744}
-  spawner: {fileID: 1551207716}
 --- !u!114 &1511079744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3756,6 +3724,7 @@ GameObject:
   - component: {fileID: 1520250277}
   - component: {fileID: 1520250279}
   - component: {fileID: 1520250278}
+  - component: {fileID: 1520250280}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -3882,6 +3851,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520250276}
   m_CullTransparentMesh: 1
+--- !u!114 &1520250280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520250276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02bf0e17a04134e80936250ca9cca157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
+  timerText: {fileID: 1520250278}
+  startingTime: 240
 --- !u!1 &1551207715
 GameObject:
   m_ObjectHideFlags: 0
@@ -9179,6 +9162,122 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726391825}
   m_CullTransparentMesh: 1
+--- !u!1 &1729237429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1729237432}
+  - component: {fileID: 1729237431}
+  - component: {fileID: 1729237430}
+  m_Layer: 0
+  m_Name: ShopTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1729237430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729237429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5141a7109b2043e39b0f877708b36ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  dialogueController: {fileID: 1149618699}
+  gameTimer: {fileID: 1520250280}
+  customerSpawner: {fileID: 1551207716}
+--- !u!65 &1729237431
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729237429}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1729237432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729237429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.38, y: 3.09, z: 7.42}
+  m_LocalScale: {x: 10.624, y: 5.4038625, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1768567042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1768567043}
+  - component: {fileID: 1768567044}
+  m_Layer: 0
+  m_Name: CustomerTimerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1768567043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768567042}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -964.07086, y: -540.1719, z: 4.466655}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1511079742}
+  m_Father: {fileID: 27421894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1768567044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768567042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32591506d3b774c8694d87589b6e5f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerTimer
+  timerText: {fileID: 1511079744}
+  spawner: {fileID: 1551207716}
 --- !u!1001 &1824796890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9657,3 +9756,4 @@ SceneRoots:
   - {fileID: 1551207717}
   - {fileID: 1372553823}
   - {fileID: 1382492605}
+  - {fileID: 1729237432}

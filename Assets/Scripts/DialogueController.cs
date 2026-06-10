@@ -5,27 +5,32 @@ using UnityEngine;
 public class DialogueController : MonoBehaviour
 {
     [Header("UI")]
-    public TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI dialogueText;
 
     [Header("Dialogue")]
     [TextArea(3, 10)]
-    public string[] dialogueLines;
+    [SerializeField] private string[] dialogueLines;
 
     [Header("Typewriter")]
-    public float characterDelay = 0.03f;
+    [SerializeField] private float characterDelay = 0.03f;
+
+    public bool DialogueFinished { get; private set; }
 
     private int currentLine = 0;
     private bool isTyping = false;
     private string currentFullLine;
-    public Timer gameTimer;
-    public CustomerSpawner spawner;
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(TypeLine(dialogueLines[currentLine]));
+        DialogueFinished = false;
+
+        if (dialogueLines.Length > 0)
+        {
+            StartCoroutine(TypeLine(dialogueLines[currentLine]));
+        }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -33,36 +38,46 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    void HandleClick()
+    private void HandleClick()
     {
+        // Finish current line instantly
         if (isTyping)
         {
             StopAllCoroutines();
 
             dialogueText.text = currentFullLine;
             isTyping = false;
+            return;
+        }
+
+        // Move to next line
+        currentLine++;
+
+        if (currentLine < dialogueLines.Length)
+        {
+            StartCoroutine(TypeLine(dialogueLines[currentLine]));
         }
         else
         {
-            currentLine++;
-
-            if (currentLine < dialogueLines.Length)
-            {
-                StartCoroutine(TypeLine(dialogueLines[currentLine]));
-            }
-            else
-            {
-                gameTimer.StartTimer();
-                spawner.BeginService();
-                gameObject.SetActive(false);
-            }
+            EndDialogue();
         }
     }
 
-    IEnumerator TypeLine(string line)
+    private void EndDialogue()
+    {
+        DialogueFinished = true;
+
+        // Hide dialogue UI
+        gameObject.SetActive(false);
+
+        Debug.Log("Dialogue Finished");
+    }
+
+    private IEnumerator TypeLine(string line)
     {
         isTyping = true;
         currentFullLine = line;
+
         dialogueText.text = "";
 
         foreach (char c in line)
