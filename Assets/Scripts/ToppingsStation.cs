@@ -67,6 +67,11 @@ public class ToppingsStation : MonoBehaviour
         foreach (GameObject topping in toppings)
         {
             topping.transform.SetParent(pizza.transform);
+            Rigidbody rb = topping.GetComponent<Rigidbody>();
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
