@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,28 +8,19 @@ public class DialogueController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
 
-    [Header("Dialogue")]
-    [TextArea(3, 10)]
-    [SerializeField] private string[] dialogueLines;
-
     [Header("Typewriter")]
     [SerializeField] private float characterDelay = 0.03f;
 
-    public bool DialogueFinished { get; private set; }
-
-    private int currentLine = 0;
-    private bool isTyping = false;
+    private string[] dialogueLines;
+    private int currentLine;
+    private bool isTyping;
     private string currentFullLine;
 
-    private void Start()
-    {
-        DialogueFinished = false;
+    private bool isDialogueActive;
 
-        if (dialogueLines.Length > 0)
-        {
-            StartCoroutine(TypeLine(dialogueLines[currentLine]));
-        }
-    }
+    public bool DialogueFinished { get; private set; }
+
+    public Action OnDialogueComplete;
 
     private void Update()
     {
@@ -38,19 +30,47 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    public void StartDialogue(string[] lines, Action onComplete = null)
+    {
+        if (isDialogueActive)
+            return;
+
+        isDialogueActive = true;
+
+        gameObject.SetActive(true);
+
+        dialogueLines = lines;
+        currentLine = 0;
+
+        DialogueFinished = false;
+        OnDialogueComplete = onComplete;
+
+        StartCoroutine(TypeLine(dialogueLines[currentLine]));
+    }
+
+    public void StartCustomerOrder(Customer customer, Action onComplete = null)
+    {
+        string[] lines =
+        {
+            customer.GetOrderDialogue()
+        };
+
+        StartDialogue(lines, onComplete);
+    }
+
     private void HandleClick()
     {
-        // Finish current line instantly
+        if (!isDialogueActive)
+            return;
+
         if (isTyping)
         {
             StopAllCoroutines();
-
             dialogueText.text = currentFullLine;
             isTyping = false;
             return;
         }
 
-        // Move to next line
         currentLine++;
 
         if (currentLine < dialogueLines.Length)
@@ -65,10 +85,12 @@ public class DialogueController : MonoBehaviour
 
     private void EndDialogue()
     {
+        isDialogueActive = false;
         DialogueFinished = true;
 
-        // Hide dialogue UI
         gameObject.SetActive(false);
+
+        OnDialogueComplete?.Invoke();
 
         Debug.Log("Dialogue Finished");
     }

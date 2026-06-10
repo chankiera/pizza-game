@@ -11,12 +11,33 @@ public class Customer : MonoBehaviour
 
     private CustomerSpawner spawner;
 
+    public PizzaType Order { get; private set; }
+
+
     public void Initialize(CustomerSpawner ownerSpawner)
     {
         spawner = ownerSpawner;
 
         remainingTime = orderTimeLimit;
         isActive = true;
+
+        GenerateOrder();
+    }
+
+    private void GenerateOrder()
+    {
+        Order = (Random.value > 0.5f)
+            ? PizzaType.Pepperoni
+            : PizzaType.Plain;
+
+        Debug.Log("Customer wants: " + Order);
+    }
+
+    public string GetOrderDialogue()
+    {
+        return Order == PizzaType.Plain
+            ? "I want a plain pizza."
+            : "I want a pepperoni pizza.";
     }
 
     void Update()
