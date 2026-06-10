@@ -4,7 +4,7 @@ public class Customer : MonoBehaviour
 {
     [SerializeField] private float orderTimeLimit = 30f;
     [SerializeField] private EndScreen endScreen;
-
+    [SerializeField] private DialogueController dialogueController;
     private float remainingTime;
     private bool isActive;
 
@@ -60,11 +60,17 @@ public class Customer : MonoBehaviour
         if (!isActive) return;
 
         isActive = false;
+
+        if (dialogueController != null)
+        {
+            dialogueController.ShowMessage("Thank you!");
+        }
+
         spawner?.ClearCustomer();
         Destroy(gameObject);
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         if (!isActive) return;
 

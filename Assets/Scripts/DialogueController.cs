@@ -58,6 +58,12 @@ public class DialogueController : MonoBehaviour
         StartDialogue(lines, onComplete);
     }
 
+    public void ShowMessage(string message, Action onComplete = null)
+    {
+        string[] lines = { message };
+        StartDialogue(lines, onComplete);
+    }
+    
     private void HandleClick()
     {
         if (!isDialogueActive)

@@ -8,7 +8,7 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] private DialogueController dialogueController;
     [SerializeField] private float delayBetweenCustomers = 3f;
 
-    public Customer CurrentCustomer { get; private set; }
+    public Customer CurrentCustomer;
 
     private bool serviceRunning;
 
@@ -27,20 +27,32 @@ public class CustomerSpawner : MonoBehaviour
         {
             SpawnCustomer();
 
-            // wait a short delay before speaking
+            // Wait a short delay before showing order dialogue
             yield return new WaitForSeconds(0.5f);
 
-            dialogueController.StartCustomerOrder(CurrentCustomer);
+            // Show customer order
+            if (CurrentCustomer != null)
+            {
+                dialogueController.StartCustomerOrder(CurrentCustomer);
+            }
 
+            // Wait until the current customer is gone
             while (CurrentCustomer != null)
                 yield return null;
 
+            // Delay before next customer
             yield return new WaitForSeconds(delayBetweenCustomers);
         }
     }
 
     private void SpawnCustomer()
     {
+        if (customerPrefabs == null || customerPrefabs.Length == 0)
+        {
+            Debug.LogError("No customer prefabs assigned!");
+            return;
+        }
+
         GameObject obj = Instantiate(
             customerPrefabs[Random.Range(0, customerPrefabs.Length)],
             spawnPoint.position,
@@ -48,10 +60,14 @@ public class CustomerSpawner : MonoBehaviour
         );
 
         CurrentCustomer = obj.GetComponent<Customer>();
-        CurrentCustomer.Initialize(this);
 
-        // IMPORTANT: show order AFTER spawn
-        dialogueController.StartCustomerOrder(CurrentCustomer);
+        if (CurrentCustomer == null)
+        {
+            Debug.LogError("Customer prefab missing Customer script!");
+            return;
+        }
+
+        CurrentCustomer.Initialize(this);
     }
 
     public void ClearCustomer()

@@ -7,6 +7,7 @@ public class Oven : MonoBehaviour
     public GameObject ovenPrompt;
     public GameObject takeOutPrompt;
     public GameObject pizzaBox;
+    public CustomerSpawner spawner;
     public float ovenTime;
     public TextMeshProUGUI timerText;
 
@@ -56,7 +57,47 @@ public class Oven : MonoBehaviour
 
             pizza.transform.position = pizzaBox.transform.position;
             pizza.transform.rotation = pizzaBox.transform.rotation;
+
+            if (spawner.CurrentCustomer == null)
+                return;
+
+            Customer customer = spawner.CurrentCustomer;
+
+            if (customer != null)
+            {
+                bool correct = CheckOrder(customer);
+
+                if (correct)
+                    customer.ServeCustomer();
+                else
+                    customer.GameOver(); // already exists in your script
+            }
+
+            ResetPizza();
         }
+    }
+
+    private bool CheckOrder(Customer customer)
+    {
+        // TEMP SIMPLE LOGIC:
+        // Replace later with real topping system
+        return true;
+    }
+
+    void ResetPizza()
+    {
+        GameObject pizza = GameObject.FindWithTag("Pizza");
+
+        pizza.transform.position = pizzaSpot.position;
+        pizza.transform.rotation = pizzaSpot.rotation;
+
+        pizzaInOven = false;
+        cooking = false;
+        doneCooking = false;
+
+        remainingTime = ovenTime;
+
+        timerText.gameObject.SetActive(false);
     }
 
     void PutPizzaInOven()
