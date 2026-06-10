@@ -2266,6 +2266,7 @@ MonoBehaviour:
   ovenPrompt: {fileID: 1664755322}
   takeOutPrompt: {fileID: 1890759989}
   pizzaBox: {fileID: 1634760091}
+  spawner: {fileID: 1551207716}
   ovenTime: 5
   timerText: {fileID: 1726391827}
 --- !u!65 &736262852
@@ -2662,8 +2663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc97e7d4287604192b0a6673e350999c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Customer
-  orderTimeLimit: 5
+  orderTimeLimit: 40
   endScreen: {fileID: 1842877938}
+  dialogueController: {fileID: 1149618699}
 --- !u!65 &886061792
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4654,6 +4656,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 85740202}
   dialogueController: {fileID: 1149618699}
   delayBetweenCustomers: 3
+  CurrentCustomer: {fileID: 886061791}
 --- !u!4 &1551207717
 Transform:
   m_ObjectHideFlags: 0
